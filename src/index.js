@@ -5,6 +5,7 @@ const bcrypt = require("bcryptjs")
 const app = express();
 const posts = require("./cre");
 // const usersdata = require("./datad")
+const { v4: uuidv4 } = require('uuid');
 
 const port = 8000;
 app.set("view engine", "ejs");
@@ -37,7 +38,9 @@ app.get("/login", (req, res) => {
 app.get("/home", async (req, res) => {
   let usersdata = await users.find();
   console.log(usersdata);
-  res.render("home",{ usersdata });
+  let postcom = await posts.find();
+  console.log(postcom);
+  res.render("home",{ usersdata , postcom});
 })
 
 app.get("/postcre", async (req, res) => {
@@ -48,7 +51,8 @@ app.get("/postcre", async (req, res) => {
 app.post("/signup", async (req, res) => {
   const data = {
     name: req.body.name,
-    password: req.body.password
+    password: req.body.password,
+    id: uuidv4()
   }
   const extinguisher = await users.findOne({ name: data.name });
   if (extinguisher) {
@@ -96,6 +100,7 @@ app.post("/login", async (req, res) => {
 /* -------------------------------------post create and saving in database---------------------------------------*/ 
 app.post("/postcre", async (req, res) => {
   const post = {
+    commentid: uuidv4(),
     name : req.body.name,
     comment : req.body.comment
   }

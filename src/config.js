@@ -17,14 +17,13 @@ const Loginschema = new mongoose.Schema({
   password: {
     type: String,
     required: true
+  },
+  id: {
+    type: String,
+    required: true
   }
 });
-// const mongoose = require('mongoose');
-// const userSchema = new mongoose.Schema({
-//  username: { type: String, unique: true, required: true },
-//  password: { type: String, required: true },
-//  });
-// module.exports = mongoose.model('User', userSchema);
+
 
 const users = new mongoose.model("users", Loginschema);
 

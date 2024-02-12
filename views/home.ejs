@@ -12,7 +12,16 @@
       
     <br><br><br>  
     <div>
+      <h1>All The post are as Follows</h1><br><br>
       <h1 class="h">want to create your own post <a href="/postcre">click here</a></h1>
+      <div>
+      <p><% for(let i=0;i<postcom.length;i++){%>
+        <p>Post Written by<%= postcom[i].name %></p><br><br>
+      <p><%= postcom[i].comment %></p>
+     <%}%>
+      
+      </p>
+      </div>
     </div>
     </body>
 </html>

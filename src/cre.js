@@ -17,6 +17,10 @@ const postcreschema = new mongoose.Schema({
   comment : {
     type : String,
     required : true
+  },
+  commentid: {
+    type: String,
+    required: true
   }
 });
 const posts = new mongoose.model("posts", postcreschema);
