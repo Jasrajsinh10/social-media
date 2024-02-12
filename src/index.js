@@ -56,12 +56,13 @@ app.get("/home", async (req, res) => {
   console.log(usersdata);
   let postcom = await posts.find();
   console.log(postcom);
-  const name = req.session.name
+  const name = req.session.name;
   res.render("home",{ usersdata , postcom,name});
 })
 
 app.get("/postcre", async (req, res) => {
-  res.render("postcre");
+  const name = req.session.name;
+  res.render("postcre",{name});
 })
 
 /* -------------------------------------Adding username and password to database---------------------------------------*/
@@ -116,9 +117,10 @@ app.post("/login", async (req, res) => {
 })
 /* -------------------------------------post create and saving in database---------------------------------------*/ 
 app.post("/postcre", async (req, res) => {
+  const naame = req.session.name;
   const post = {
     commentid: uuidv4(),
-    name : req.body.name,
+    name : naame,
     comment : req.body.comment
   }
   const che = await users.findOne({name: post.name });
