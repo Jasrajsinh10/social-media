@@ -9,11 +9,27 @@ const { v4: uuidv4 } = require('uuid');
 
 const port = 8000;
 app.set("view engine", "ejs");
-app.set("views","views")
+app.set("views", "views")
+const session = require('express-session');
 
 // convert data in json format
 
 // app.use(express.urlencoded({extended:true}));
+app.use(session({
+  secret: '123456789123456',
+  resave: false,
+  saveUninitialized: true
+}));
+app.get('/initialize-session', (req, res) => {
+  // Accessing session data
+  if (req.session.views) {
+    req.session.views++;
+    res.send(`You have visited this page ${req.session.views} times`);
+  } else {
+    req.session.views = 1;
+    res.send('Welcome to the page! Refresh to increment the counter.');
+  }
+});
 
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
@@ -40,7 +56,8 @@ app.get("/home", async (req, res) => {
   console.log(usersdata);
   let postcom = await posts.find();
   console.log(postcom);
-  res.render("home",{ usersdata , postcom});
+  const name = req.session.name
+  res.render("home",{ usersdata , postcom,name});
 })
 
 app.get("/postcre", async (req, res) => {
@@ -86,8 +103,8 @@ app.post("/login", async (req, res) => {
     // let passw = await bcrypt.hash(password,salt);
     const chek = await bcrypt.compare(password ,check.password);
     if (chek) {
-      
-      res.redirect("/home");
+      req.session.name = req.body.name;
+      res.redirect("/home")
     }
     else {
       res.send("wrong crendentials");
