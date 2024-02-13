@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <% let j = 1 %>
+  <% for(let i =0;i<postcom.length;i++) {%>
+    <%if (name == postcom[i].name) {%>
+      <p>This is Post <%= [j] %></p>
+      <p>Comment By <%=postcom[i].name %></p>
+      <p>Comment content : <br><textarea name="comment"> <%=postcom[i].comment %></textarea></p>
+      <p>CommentId :  <%=postcom[i].commentid %></5></p>
+      <form action="/edit/<%=postcom[i].commentid%>" method="get"><button >Edit</button></form>
+      <form action="/delete/<%=postcom[i].commentid%>?_method=DELETE" method="post"><button type="submit">delete</button></form>
+      <br>
+      <% j++; %>
+   <% } %>
+  
+   <% } %>
+     
+  
+  
+</body>
+</html>

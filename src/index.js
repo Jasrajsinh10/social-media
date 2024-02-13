@@ -6,6 +6,7 @@ const app = express();
 const posts = require("./cre");
 // const usersdata = require("./datad")
 const { v4: uuidv4 } = require('uuid');
+const methodOverride = require("method-override");
 
 const port = 8000;
 app.set("view engine", "ejs");
@@ -31,9 +32,9 @@ app.get('/initialize-session', (req, res) => {
   }
 });
 
+app.use(methodOverride('_method'));
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
-    
 app.use(express.json());
 
 app.listen(port, () => {
@@ -51,13 +52,56 @@ app.get("/login", (req, res) => {
   res.render("login");
 })
 
+// update is the page where you can see all your posts as user and start the edit of post
+app.get("/update", async (req, res) => {
+  let postcom = await posts.find(); 
+  const name = req.session.name;
+  // console.log(postcom);
+  // console.log(name)
+  res.render("update", {postcom,name});
+})
+
+// here is api to edit your own post
+app.get("/edit/:commentid", async(req, res) => {
+  
+  let postcom = await posts.find();
+  console.log(req.params.commentid);
+  postcom.forEach(po => {
+    if (po.commentid == req.params.commentid) {
+       post = po;
+    }
+  });
+  // console.log(post)
+  res.render("edit",{ post })
+})
+
+app.patch("/edit/:commentid", (req, res) => {
+  
+  let newcontent = req.body.comment;
+  posts.updateOne({ commentid: req.params.commentid }, { comment: newcontent }).then((res) => {
+    console.log(res);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  res.redirect("/home");
+})
+app.delete("/delete/:commentid", (req, res) => {
+  posts.deleteOne({ commentid: req.params.commentid }).then((res) => {
+    console.log(res);
+  })
+  res.redirect("/home");
+})
+
+// this the home page api
 app.get("/home", async (req, res) => {
   let usersdata = await users.find();
-  console.log(usersdata);
+  // console.log(usersdata);
   let postcom = await posts.find();
-  console.log(postcom);
+  // console.log(postcom);
   const name = req.session.name;
-  res.render("home",{ usersdata , postcom,name});
+  // const commentidr = req.session.commentid;
+  res.render("home",{ usersdata , postcom, name});
 })
 
 app.get("/postcre", async (req, res) => {
@@ -85,7 +129,7 @@ app.post("/signup", async (req, res) => {
 
 
     const userdata = await users.insertMany(data);
-    // console.log(userdata);
+    console.log(userdata);
     res.redirect("/login");
   }
 })
@@ -123,13 +167,12 @@ app.post("/postcre", async (req, res) => {
     name : naame,
     comment : req.body.comment
   }
-  const che = await users.findOne({name: post.name });
-  if (!che) {
-    // res.redirect("/home");
-  } else {
+  
+  // req.session.comment = req.post.comment;
+ 
     const userpost = await posts.insertMany(post)
     res.redirect("/home");
-  }
+  
     
     // console.log(che);
 
