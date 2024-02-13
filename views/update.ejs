@@ -9,19 +9,23 @@
   <% let j = 1 %>
   <% for(let i =0;i<postcom.length;i++) {%>
     <%if (name == postcom[i].name) {%>
-      <p>This is Post <%= [j] %></p>
-      <p>Comment By <%=postcom[i].name %></p>
-      <p>Comment content : <br><textarea name="comment"> <%=postcom[i].comment %></textarea></p>
-      <p>CommentId :  <%=postcom[i].commentid %></5></p>
-      <form action="/edit/<%=postcom[i].commentid%>" method="get"><button >Edit</button></form>
-      <form action="/delete/<%=postcom[i].commentid%>?_method=DELETE" method="post"><button type="submit">delete</button></form>
+       <div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">This is Post <%= [j] %></h5>
+    <h6 class="card-subtitle mb-2 text-body-secondary">Comment By <%=postcom[i].name %></h6>
+    <p class="card-text">Comment content : <br><textarea name="comment"> <%=postcom[i].comment %></textarea></p><p></p> <br> CommentId :  <%=postcom[i].commentid %></p>
+    <a  class="card-link"><form action="/edit/<%=postcom[i].commentid%>" method="get"><button >Edit</button></form></a>
+    <a class="card-link"><form action="/delete/<%=postcom[i].commentid%>?_method=DELETE" method="post"><button type="submit">delete</button></form></a>
+  </div>
+</div>
+      
       <br>
       <% j++; %>
    <% } %>
   
    <% } %>
      
-  
+ 
   
 </body>
 </html>

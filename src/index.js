@@ -4,7 +4,7 @@ const users = require("./config");
 const bcrypt = require("bcryptjs")
 const app = express();
 const posts = require("./cre");
-// const usersdata = require("./datad")
+
 const { v4: uuidv4 } = require('uuid');
 const methodOverride = require("method-override");
 
@@ -19,7 +19,7 @@ const session = require('express-session');
 app.use(session({
   secret: '123456789123456',
   resave: false,
-  saveUninitialized: true
+  saveUninitialized: false
 }));
 app.get('/initialize-session', (req, res) => {
   // Accessing session data

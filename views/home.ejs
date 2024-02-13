@@ -8,11 +8,32 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
   </head>
   <body>
-    
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/home">Home</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/update"><%=name%></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/update">My Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/postcre">Create Posts</a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
     
     <br><br>
     <h1 class="h">Welcome to <%= name %> </h1> <br><br>
-    <h1 class="h">Do You want to see your own posts then <a href="/update"> Click Here</a></h1>
+    
     
     <br><br><br>  
     <h1 class="h">All The post are as Follows</h1><br><br>
@@ -21,11 +42,11 @@
       <div class="card w-75 mb-3" style="border: none; display: inline;">
         <div class="card-body" style="border: none;" >
           <% for(let i=0;i<postcom.length;i++){%>
-            <h4 class="card-title" id="ha">By <%= postcom[i].name %></h4>
-            <p class="card-text"><h3><%= postcom[i].comment %>.</h3><br><br></p>
+            <h5 class="card-title" id="ha">By <%= postcom[i].name %></h5>
+            <p class="card-text"><h3><%= postcom[i].comment %>.</h3></p><br><br>
             
             <%}%>
-            <h1 class="h">want to create your own post <a href="/postcre">click here</a></h1>
+            
             
           </div>
         </div>
