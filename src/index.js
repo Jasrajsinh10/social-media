@@ -12,6 +12,7 @@ const port = 8000;
 app.set("view engine", "ejs");
 app.set("views", "views")
 const session = require('express-session');
+const { name } = require("ejs");
 
 // convert data in json format
 
@@ -54,11 +55,16 @@ app.get("/login", (req, res) => {
 
 // update is the page where you can see all your posts as user and start the edit of post
 app.get("/update", async (req, res) => {
-  let postcom = await posts.find(); 
   const name = req.session.name;
-  // console.log(postcom);
-  // console.log(name)
-  res.render("update", {postcom,name});
+  if (name !== undefined) {
+    let postcom = await posts.find();
+    // console.log(postcom);
+    // console.log(name)
+    res.render("update", { postcom, name });
+  }
+  else {
+    res.redirect("/login")
+  }
 })
 
 // here is api to edit your own post
@@ -169,9 +175,13 @@ app.post("/postcre", async (req, res) => {
   }
   
   // req.session.comment = req.post.comment;
- 
+  if (naame !== undefined) {
     const userpost = await posts.insertMany(post)
     res.redirect("/home");
+  }
+  else {
+    res.redirect("/login")
+  }
   
     
     // console.log(che);
