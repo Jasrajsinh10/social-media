@@ -7,3 +7,5 @@ View All Posts: Users can view all posts from all users.
 Frontend: HTML, CSS, JavaScript
 Backend: Node.js, Express.js
 Database: MongoDB
+
+#You can start the project by writing nodemon src/index.js in vs code terminal and this project port is 8000.
