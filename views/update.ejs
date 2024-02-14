@@ -11,8 +11,8 @@
   <% let j = 1 %>
   <% for(let i =0;i<postcom.length;i++) {%>
     <%if (name == postcom[i].name) {%>
-       <div class="card" style="width: 18rem; display: inline-block; ">
-  <div class="card-body" style="display: inline-block; text-align: center;">
+       <div class="card" style="width: 18rem; display: inline-block; margin: 35px 50px; ">
+  <div class="card-body" style="display: inline-block; text-align: center; ">
     <h5 class="card-title">This is Post <%= [j] %></h5>
     <h6 class="card-subtitle mb-2 text-body-secondary">Comment By <%=postcom[i].name %></h6>
     <p class="card-text">Comment content : <br><textarea name="comment"> <%=postcom[i].comment %></textarea></p><p></p> <br> CommentId :  <%=postcom[i].commentid %></p>
