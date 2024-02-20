@@ -1,6 +1,6 @@
 Social Media Web Project! This project is a simple social media platform where users can create, delete, edit posts and see posts from all users.
 
-#Features
+## Features
 User Authentication: Users can sign up, log in, and log out securely.
 Post Management: Users can create, delete, and edit their posts.
 View All Posts: Users can view all posts from all users.
